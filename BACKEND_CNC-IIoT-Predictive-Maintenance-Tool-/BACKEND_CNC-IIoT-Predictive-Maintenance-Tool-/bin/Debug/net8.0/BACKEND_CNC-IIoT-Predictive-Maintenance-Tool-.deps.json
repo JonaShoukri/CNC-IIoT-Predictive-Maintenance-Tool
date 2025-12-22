@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/1.0.0": {
+        "runtime": {
+          "BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
