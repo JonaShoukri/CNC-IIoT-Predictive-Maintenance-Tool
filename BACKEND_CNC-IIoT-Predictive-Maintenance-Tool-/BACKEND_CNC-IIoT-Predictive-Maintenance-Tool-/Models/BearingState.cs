@@ -1,0 +1,32 @@
+namespace BACKEND_CNC_IIoT_Predictive_Maintenance_Tool_.Models;
+
+public record BearingState(
+    double Rms,
+    double Peak,
+    double CrestFactor,
+    double Kurtosis,
+    double Skewness,
+    double StdDev,
+    double PeakToPeak,
+    double Mean,
+    double Variance,
+    double DominantFrequency_Hz,
+    double DominantFrequency_Mag,
+    double Energy_0_500Hz,
+    double Energy_500_1000Hz,
+    double Energy_1000_2000Hz,
+    double Energy_2000_4000Hz,
+    double Energy_4000_6000Hz,
+    double Energy_6000_8000Hz,
+    double Energy_8000_10240Hz,
+    double EnergyBPFO,
+    double EnergyBPFI,
+    double EnergyBSF,
+    double EnergyFTF,
+    double EnergyBPFO_2x,
+    double EnergyBPFI_2x,
+    double EnergyBPFO_3x,
+    double EnergyBPFI_3x,
+    double Revolutions,
+    double RUL
+    );

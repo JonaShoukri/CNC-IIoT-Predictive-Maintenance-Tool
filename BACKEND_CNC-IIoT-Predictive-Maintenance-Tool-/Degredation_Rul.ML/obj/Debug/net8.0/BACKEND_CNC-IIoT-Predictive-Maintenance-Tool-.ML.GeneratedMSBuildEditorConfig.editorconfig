@@ -1,0 +1,13 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BACKEND_CNC_IIoT_Predictive_Maintenance_Tool_.ML
+build_property.ProjectDir = /Users/jonas/Documents/GitHub/CNC-IIoT-Predictive-Maintenance-Tool/BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-.ML/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
