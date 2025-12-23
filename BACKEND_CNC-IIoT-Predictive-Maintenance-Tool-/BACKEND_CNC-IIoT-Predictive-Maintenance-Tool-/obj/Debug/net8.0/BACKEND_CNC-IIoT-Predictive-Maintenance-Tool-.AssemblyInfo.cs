@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f1220fe5a072af0d7767fea1aff96ff5d5d6012")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+142c0d34ec77aa70f4b1558a5579a6229f8e82cc")]
 [assembly: System.Reflection.AssemblyProductAttribute("BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
