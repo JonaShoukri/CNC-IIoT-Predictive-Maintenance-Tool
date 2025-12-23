@@ -35,7 +35,7 @@ This tool demonstrates how **predictive maintenance** shifts from reactive ("fix
 
 This project is a **digital twin simulation** of a CNC production floor that models ball bearing degradation over time using machine learning. It enables production floor managers to:
 
-- **Simulate** realistic bearing wear patterns based on NASA's IMS bearing dataset
+- **Simulate** realistic bearing wear patterns based on NASA's IMS bearing dataset (https://data.nasa.gov/dataset/ims-bearings)
 - **Predict** remaining useful life (RUL) before failure occurs
 - **Schedule** proactive maintenance to prevent unplanned downtime
 - **Monitor** multiple CNC machines simultaneously in real-time
