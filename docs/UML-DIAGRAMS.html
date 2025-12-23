@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Digital Twin - UML Diagrams</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --border: #30363d;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .nav a {
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .nav a:hover {
+            background: var(--bg-tertiary);
+        }
+
+        section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+
+        .diagram-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .mermaid {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-color.singleton { background: #4493f8; }
+        .legend-color.entity { background: #3fb950; }
+        .legend-color.interface { background: #a371f7; }
+        .legend-color.record { background: #d29922; }
+        .legend-color.static { background: #f85149; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CNC Production Floor Digital Twin</h1>
+            <p>UML Architecture Diagrams</p>
+        </header>
+
+        <nav class="nav">
+            <a href="#class-diagram">Class Diagram</a>
+            <a href="#sequence-diagram">Sequence Diagram</a>
+            <a href="#component-diagram">Component Diagram</a>
+            <a href="#state-bearing">Bearing States</a>
+            <a href="#state-machine">Machine States</a>
+        </nav>
+
+        <section id="class-diagram">
+            <h2>Class Diagram</h2>
+            <p class="diagram-description">
+                Complete class structure showing all entities, their properties, methods, and relationships.
+            </p>
+            <div class="mermaid">
+classDiagram
+    direction TB
+
+    class ProductionFloor {
+        &lt;&lt;singleton&gt;&gt;
+        +Instance$ : ProductionFloor
+        -_cncs : List~CNC~
+        -_engine : IDegradationEngine
+        -_rul : IRulEngine
+        -_clock : SimulationClock
+        +Machines : IReadOnlyList~CNC~
+        +TotalIterations : int
+        +ActiveMachineCount : int
+        +FailedMachineCount : int
+        +Tick(deltaSeconds) void
+        +ForceTick() void
+        +AddCnc(cnc) void
+        +RemoveCnc(id) bool
+        +GetBearingsNeedingAttention(threshold) IEnumerable
+    }
+
+    class CNC {
+        +Id : Guid
+        +Model : string
+        +Bearings : Bearing[]
+        +IsOn : bool
+        +HasFailed : bool
+        +FailedBearingIndex : int?
+        +TurnOn() bool
+        +TurnOff() void
+        +Tick(engine, rul, revolutions) void
+        +ReplaceBearing(index) void
+        +GetMostDegradedBearing() Bearing
+    }
+
+    class Bearing {
+        +Index : int
+        +Position : string
+        +State : BearingState
+        +RUL : double
+        +HealthPercentage : double
+        +UpdateState(next, rul) void
+        +GetHealthStatus() string
+    }
+
+    class BearingState {
+        &lt;&lt;record&gt;&gt;
+        +Rms : double
+        +Peak : double
+        +CrestFactor : double
+        +Kurtosis : double
+        +Skewness : double
+        +StdDev : double
+        +... 22 more features
+        +Revolutions : double
+        +RUL : double
+    }
+
+    class SimulationClock {
+        +TimeMultiplier : double
+        +AccumulatedSeconds : double
+        +ShouldTick(deltaSeconds) bool
+        +Reset() void
+    }
+
+    class FailureCriteria {
+        &lt;&lt;static&gt;&gt;
+        +BearingFailureRul$ : double
+        +IsFailed$(rul) bool
+    }
+
+    class BearingInitializer {
+        &lt;&lt;singleton&gt;&gt;
+        +Instance$ : BearingInitializer
+        +CreateInitialState() BearingState
+    }
+
+    class Bounds {
+        &lt;&lt;static&gt;&gt;
+        +Rms$ : Tuple
+        +Peak$ : Tuple
+        +... : Tuple
+    }
+
+    class IDegradationEngine {
+        &lt;&lt;interface&gt;&gt;
+        +PredictNext(state, revolutions) BearingState
+    }
+
+    class MlDegradationEngine {
+        -_predictors : Dictionary
+        +PredictNext(state, revolutions) BearingState
+    }
+
+    class IRulEngine {
+        &lt;&lt;interface&gt;&gt;
+        +PredictRul(state) double
+    }
+
+    class MlRulEngine {
+        -_predictor : BearingRulPredictor
+        +PredictRul(state) double
+    }
+
+    class DegradationPredictor {
+        +AvailableModels$ : string[]
+        +ModelName : string
+        +Predict(input) DegradationOutput
+    }
+
+    class BearingRulPredictor {
+        +ModelName : string
+        +Predict(input) BearingRulOutput
+    }
+
+    ProductionFloor *-- SimulationClock
+    ProductionFloor *-- IDegradationEngine
+    ProductionFloor *-- IRulEngine
+    ProductionFloor *-- CNC
+    CNC *-- Bearing
+    Bearing *-- BearingState
+    MlDegradationEngine ..|> IDegradationEngine
+    MlRulEngine ..|> IRulEngine
+    MlDegradationEngine --> DegradationPredictor
+    MlRulEngine --> BearingRulPredictor
+    Bearing --> BearingInitializer
+    BearingInitializer --> Bounds
+    CNC --> FailureCriteria
+            </div>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color singleton"></div><span>Singleton</span></div>
+                <div class="legend-item"><div class="legend-color entity"></div><span>Entity/Class</span></div>
+                <div class="legend-item"><div class="legend-color interface"></div><span>Interface</span></div>
+                <div class="legend-item"><div class="legend-color record"></div><span>Record</span></div>
+                <div class="legend-item"><div class="legend-color static"></div><span>Static Class</span></div>
+            </div>
+        </section>
+
+        <section id="sequence-diagram">
+            <h2>Sequence Diagram - Simulation Tick</h2>
+            <p class="diagram-description">
+                Shows the flow of a single simulation iteration, from time check through degradation prediction to failure detection.
+            </p>
+            <div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant P as Program
+    participant PF as ProductionFloor
+    participant SC as SimulationClock
+    participant CNC as CNC Machine
+    participant B as Bearing
+    participant DE as DegradationEngine
+    participant RE as RulEngine
+    participant FC as FailureCriteria
+
+    P->>PF: Tick(deltaSeconds)
+    PF->>SC: ShouldTick(deltaSeconds)
+
+    alt Accumulated >= 7.5 min
+        SC-->>PF: true
+        PF->>PF: TotalIterations++
+
+        loop Each active CNC
+            PF->>CNC: Tick(engine, rul, 15000)
+
+            loop Each Bearing
+                CNC->>B: Get State
+                B-->>CNC: BearingState
+
+                CNC->>DE: PredictNext(state, 15000)
+                Note over DE: Run 26 ML models
+                DE-->>CNC: Degraded BearingState
+
+                CNC->>RE: PredictRul(degradedState)
+                Note over RE: Run RUL model
+                RE-->>CNC: RUL value
+
+                CNC->>B: UpdateState(newState, rul)
+
+                CNC->>FC: IsFailed(rul)
+
+                alt RUL >= 1.0
+                    FC-->>CNC: true (FAILED)
+                    CNC->>CNC: Shutdown machine
+                else RUL < 1.0
+                    FC-->>CNC: false (OK)
+                end
+            end
+        end
+
+        PF->>PF: Fire OnIterationComplete event
+    else Accumulated < 7.5 min
+        SC-->>PF: false (wait)
+    end
+            </div>
+        </section>
+
+        <section id="component-diagram">
+            <h2>Component Diagram</h2>
+            <p class="diagram-description">
+                High-level view of system components and their dependencies.
+            </p>
+            <div class="mermaid">
+flowchart TB
+    subgraph UI["Console Application"]
+        Program["Program.cs<br/>Interactive Menu"]
+    end
+
+    subgraph Domain["Core Domain Layer"]
+        PF["ProductionFloor<br/>(Singleton)"]
+        CNC["CNC Machine"]
+        Bearing["Bearing"]
+        State["BearingState<br/>(28 features)"]
+    end
+
+    subgraph Services["Service Layer"]
+        DE["IDegradationEngine"]
+        RE["IRulEngine"]
+        MDE["MlDegradationEngine"]
+        MRE["MlRulEngine"]
+    end
+
+    subgraph ML["ML.NET Layer"]
+        DP["DegradationPredictor<br/>(26 instances)"]
+        RP["BearingRulPredictor"]
+    end
+
+    subgraph Models["Trained Models"]
+        DM[("26x .mlnet<br/>Degradation Models")]
+        RM[("BearingRul.mlnet")]
+    end
+
+    Program --> PF
+    PF --> CNC
+    CNC --> Bearing
+    Bearing --> State
+
+    PF --> DE
+    PF --> RE
+    DE -.-> MDE
+    RE -.-> MRE
+
+    MDE --> DP
+    MRE --> RP
+
+    DP --> DM
+    RP --> RM
+
+    style Program fill:#4493f8
+    style PF fill:#3fb950
+    style CNC fill:#3fb950
+    style Bearing fill:#3fb950
+    style State fill:#d29922
+    style DE fill:#a371f7
+    style RE fill:#a371f7
+    style MDE fill:#238636
+    style MRE fill:#238636
+    style DP fill:#1f6feb
+    style RP fill:#1f6feb
+    style DM fill:#f85149
+    style RM fill:#f85149
+            </div>
+        </section>
+
+        <section id="state-bearing">
+            <h2>State Diagram - Bearing Health</h2>
+            <p class="diagram-description">
+                Bearing health transitions based on RUL (Remaining Useful Life) value.
+            </p>
+            <div class="mermaid">
+stateDiagram-v2
+    [*] --> GOOD: New Bearing (RUL = 0)
+
+    GOOD --> GOOD: RUL < 0.5
+    GOOD --> FAIR: RUL >= 0.5
+
+    FAIR --> FAIR: 0.5 ≤ RUL < 0.7
+    FAIR --> WARNING: RUL >= 0.7
+
+    WARNING --> WARNING: 0.7 ≤ RUL < 0.9
+    WARNING --> CRITICAL: RUL >= 0.9
+
+    CRITICAL --> CRITICAL: 0.9 ≤ RUL < 1.0
+    CRITICAL --> FAILED: RUL >= 1.0
+
+    FAILED --> GOOD: ReplaceBearing()
+
+    note right of GOOD
+        Health: 50-100%
+        Action: Normal Operation
+    end note
+
+    note right of FAIR
+        Health: 30-50%
+        Action: Monitor Closely
+    end note
+
+    note right of WARNING
+        Health: 10-30%
+        Action: Schedule Maintenance
+    end note
+
+    note right of CRITICAL
+        Health: 0-10%
+        Action: IMMEDIATE ATTENTION
+    end note
+
+    note right of FAILED
+        Health: 0%
+        Machine Shutdown
+    end note
+            </div>
+        </section>
+
+        <section id="state-machine">
+            <h2>State Diagram - CNC Machine</h2>
+            <p class="diagram-description">
+                CNC machine state transitions during operation.
+            </p>
+            <div class="mermaid">
+stateDiagram-v2
+    [*] --> OFF: Create new CNC()
+
+    OFF --> RUNNING: TurnOn()
+    RUNNING --> OFF: TurnOff()
+
+    RUNNING --> RUNNING: Tick() All bearings healthy
+    RUNNING --> FAILED: Tick() Bearing RUL >= 1.0
+
+    FAILED --> OFF: ReplaceBearing(failedIndex)
+
+    note right of OFF
+        IsOn = false
+        HasFailed = false
+        Ready to start
+    end note
+
+    note right of RUNNING
+        IsOn = true
+        HasFailed = false
+        Processing degradation
+    end note
+
+    note right of FAILED
+        IsOn = false
+        HasFailed = true
+        FailedBearingIndex set
+        Requires maintenance
+    end note
+            </div>
+        </section>
+
+        <footer>
+            <p>CNC Production Floor Digital Twin - IIoT Predictive Maintenance</p>
+            <p>Built with .NET 8.0 & ML.NET</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#238636',
+                primaryTextColor: '#c9d1d9',
+                primaryBorderColor: '#30363d',
+                lineColor: '#8b949e',
+                secondaryColor: '#21262d',
+                tertiaryColor: '#161b22',
+                background: '#0d1117',
+                mainBkg: '#161b22',
+                nodeBorder: '#30363d',
+                clusterBkg: '#21262d',
+                titleColor: '#c9d1d9',
+                edgeLabelBackground: '#21262d'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: true,
+                wrap: true
+            }
+        });
+    </script>
+</body>
+</html>
