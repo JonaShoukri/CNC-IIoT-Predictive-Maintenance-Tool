@@ -21,11 +21,21 @@
 
 ---
 
+## Why This Matters
+
+Bearing failures in CNC spindles cost **$1,500–$40,000** per incident plus 4–72 hours of unplanned downtime. In aerospace manufacturing (titanium, Inconel machining), a single failed spindle bearing can cascade into:
+
+- Missed delivery deadlines on flight-critical components
+- Scrap costs from mid-cut failures
+- OEE drops of 15–30% during recovery
+
+This tool demonstrates how **predictive maintenance** shifts from reactive ("fix it when it breaks") to proactive scheduling — the foundation of world-class operations.
+
 ## Overview
 
 This project is a **digital twin simulation** of a CNC production floor that models ball bearing degradation over time using machine learning. It enables production floor managers to:
 
-- **Simulate** realistic bearing wear patterns based on NASA's IMS bearing dataset
+- **Simulate** realistic bearing wear patterns based on NASA's IMS bearing dataset (https://data.nasa.gov/dataset/ims-bearings)
 - **Predict** remaining useful life (RUL) before failure occurs
 - **Schedule** proactive maintenance to prevent unplanned downtime
 - **Monitor** multiple CNC machines simultaneously in real-time
