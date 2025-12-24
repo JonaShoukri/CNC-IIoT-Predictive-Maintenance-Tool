@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Degredation_Rul.ML")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f1220fe5a072af0d7767fea1aff96ff5d5d6012")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+faf19172a14521cde826f69553ac3f3ac9c94e6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Degredation_Rul.ML")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Degredation_Rul.ML")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
