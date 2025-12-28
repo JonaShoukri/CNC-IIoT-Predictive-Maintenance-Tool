@@ -210,12 +210,36 @@ Every **7.5 simulated minutes** (configurable speed), the following occurs:
 
 ## Getting Started
 
-### Prerequisites
+### Quick Install (Recommended)
+
+Install with a single command - no dependencies required:
+
+**macOS / Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/main/install.ps1 | iex
+```
+
+Then run from anywhere:
+```bash
+CNC-Predictive-Maintenance
+```
+
+### Build from Source
+
+<details>
+<summary>Click to expand development setup</summary>
+
+#### Prerequisites
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later
 - Terminal with Unicode support (for progress bars and symbols)
 
-### Installation
+#### Installation
 
 ```bash
 # Clone the repository
@@ -230,6 +254,8 @@ dotnet build
 # Run the simulation
 dotnet run
 ```
+
+</details>
 
 ### Quick Start Guide
 

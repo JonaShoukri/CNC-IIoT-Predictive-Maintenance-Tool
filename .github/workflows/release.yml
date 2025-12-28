@@ -1,0 +1,102 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.0, v1.2.3
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+
+env:
+  PROJECT_PATH: BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-.csproj
+  APP_NAME: CNC-Predictive-Maintenance
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            runtime: win-x64
+            artifact: CNC-Predictive-Maintenance.exe
+          - os: macos-latest
+            runtime: osx-x64
+            artifact: CNC-Predictive-Maintenance
+          - os: macos-latest
+            runtime: osx-arm64
+            artifact: CNC-Predictive-Maintenance
+          - os: ubuntu-latest
+            runtime: linux-x64
+            artifact: CNC-Predictive-Maintenance
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      - name: Publish
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} \
+            -c Release \
+            -r ${{ matrix.runtime }} \
+            -o ./publish/${{ matrix.runtime }}
+
+      - name: Create archive (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          cd ./publish/${{ matrix.runtime }}
+          chmod +x ${{ matrix.artifact }}
+          tar -czvf ../../${{ env.APP_NAME }}-${{ matrix.runtime }}.tar.gz ${{ matrix.artifact }}
+
+      - name: Create archive (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cd ./publish/${{ matrix.runtime }}
+          Compress-Archive -Path ${{ matrix.artifact }} -DestinationPath ../../${{ env.APP_NAME }}-${{ matrix.runtime }}.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-${{ matrix.runtime }}
+          path: |
+            ${{ env.APP_NAME }}-${{ matrix.runtime }}.tar.gz
+            ${{ env.APP_NAME }}-${{ matrix.runtime }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release
+          find artifacts -type f \( -name "*.tar.gz" -o -name "*.zip" \) -exec mv {} release/ \;
+          ls -la release/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

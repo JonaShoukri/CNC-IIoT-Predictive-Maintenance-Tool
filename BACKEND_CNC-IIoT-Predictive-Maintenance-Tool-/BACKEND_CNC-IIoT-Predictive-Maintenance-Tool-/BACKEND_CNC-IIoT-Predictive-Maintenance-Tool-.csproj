@@ -6,6 +6,18 @@
         <RootNamespace>BACKEND_CNC_IIoT_Predictive_Maintenance_Tool_</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <!-- Application metadata -->
+        <AssemblyName>CNC-Predictive-Maintenance</AssemblyName>
+        <Product>CNC IIoT Predictive Maintenance Tool</Product>
+        <Version>1.0.0</Version>
+
+        <!-- Self-contained single-file publishing -->
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+        <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+        <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     </PropertyGroup>
 
     <ItemGroup>
