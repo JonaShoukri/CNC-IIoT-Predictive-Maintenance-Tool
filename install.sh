@@ -91,6 +91,12 @@ install() {
 
     echo "Installing to $INSTALL_DIR..."
 
+    # Create install directory if it doesn't exist
+    if [ ! -d "$INSTALL_DIR" ]; then
+        echo -e "${YELLOW}Creating $INSTALL_DIR...${NC}"
+        sudo mkdir -p "$INSTALL_DIR"
+    fi
+
     # Check if we need sudo
     if [ -w "$INSTALL_DIR" ]; then
         mv "$APP_NAME" "$INSTALL_DIR/"
