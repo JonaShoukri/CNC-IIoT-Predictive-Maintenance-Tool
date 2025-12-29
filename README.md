@@ -1,4 +1,5 @@
 <p align="center">
+  <a href="https://github.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/releases/latest"><img src="https://img.shields.io/github/v/release/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool?style=for-the-badge&color=blue" alt="Latest Release"/></a>
   <img src="https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET 8.0"/>
   <img src="https://img.shields.io/badge/ML.NET-3.0-00BCF2?style=for-the-badge&logo=microsoft&logoColor=white" alt="ML.NET"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License"/>
@@ -18,6 +19,39 @@
   <br>
   A real-time digital twin for CNC machine ball bearing degradation using ML.NET predictive models
 </p>
+
+---
+
+## Install & Run (No Dependencies Required)
+
+**macOS / Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/main/install.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/main/install.ps1 | iex
+```
+
+**Then run from any terminal:**
+```bash
+CNC-Predictive-Maintenance
+```
+
+> Self-contained binary (~40MB) - no .NET SDK or runtime installation needed.
+
+<details>
+<summary><b>Manual Download</b></summary>
+
+| Platform | Download |
+|----------|----------|
+| Windows (x64) | [CNC-Predictive-Maintenance-win-x64.zip](https://github.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/releases/latest/download/CNC-Predictive-Maintenance-win-x64.zip) |
+| macOS (Intel) | [CNC-Predictive-Maintenance-osx-x64.tar.gz](https://github.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/releases/latest/download/CNC-Predictive-Maintenance-osx-x64.tar.gz) |
+| macOS (Apple Silicon) | [CNC-Predictive-Maintenance-osx-arm64.tar.gz](https://github.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/releases/latest/download/CNC-Predictive-Maintenance-osx-arm64.tar.gz) |
+| Linux (x64) | [CNC-Predictive-Maintenance-linux-x64.tar.gz](https://github.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/releases/latest/download/CNC-Predictive-Maintenance-linux-x64.tar.gz) |
+
+</details>
 
 ---
 
@@ -208,28 +242,7 @@ Every **7.5 simulated minutes** (configurable speed), the following occurs:
 
 ---
 
-## Getting Started
-
-### Quick Install (Recommended)
-
-Install with a single command - no dependencies required:
-
-**macOS / Linux:**
-```bash
-curl -fsSL https://raw.githubusercontent.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/main/install.sh | bash
-```
-
-**Windows (PowerShell):**
-```powershell
-irm https://raw.githubusercontent.com/JonaShoukri/CNC-IIoT-Predictive-Maintenance-Tool/main/install.ps1 | iex
-```
-
-Then run from anywhere:
-```bash
-CNC-Predictive-Maintenance
-```
-
-### Build from Source
+## Build from Source
 
 <details>
 <summary>Click to expand development setup</summary>
