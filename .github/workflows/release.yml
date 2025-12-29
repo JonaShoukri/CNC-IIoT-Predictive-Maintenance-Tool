@@ -4,7 +4,12 @@ on:
   push:
     tags:
       - 'v*'  # Triggers on version tags like v1.0.0, v1.2.3
-  workflow_dispatch:  # Allows manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.1'
 
 env:
   PROJECT_PATH: BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-/BACKEND_CNC-IIoT-Predictive-Maintenance-Tool-.csproj
@@ -90,6 +95,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ github.event_name == 'push' && github.ref_name || github.event.inputs.version }}
+          name: ${{ github.event_name == 'push' && github.ref_name || github.event.inputs.version }}
           files: release/*
           generate_release_notes: true
           draft: false
